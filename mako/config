@@ -1,0 +1,1 @@
+on-notify=exec sleep 5 && makoctl dismiss

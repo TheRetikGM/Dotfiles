@@ -1,0 +1,377 @@
+@define-color primary-activated-bg #af0000;
+@define-color primary-bg #1111aa;
+/*@define-color secondary-bg #06003f;*/
+@define-color secondary-bg #1c1c1c;
+@define-color primary-fg #ffffff;
+@define-color back-grad rgba(20, 20, 0, 255);
+@define-color p-media #120012;
+@define-color s-media #bb1111;
+
+* {
+    border: none;
+    border-radius: 0;
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    min-height: 0px;
+    margin: 0.1em 0.3em 0.1em 0.3em;
+}
+
+window#waybar {
+    background-color: rgba(0, 0, 0, 0.1);
+    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 10%, @back-grad 50%, rgba(0, 0, 0, 0) 90%);
+    color: #ffff00;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/*
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
+}
+*/
+
+window#waybar.termite {
+    background-color: #3F3F3F;
+}
+
+window#waybar.chromium {
+    background-color: #000000;
+    border: none;
+}
+
+#workspaces button {
+    padding: 3px 0em 0 0em;
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    /* Use box-shadow instead of border so the text isn't offset */
+    /*box-shadow: inset 0 -3px transparent;*/
+    border-radius: 20px;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover {
+    background: rgba(0, 0, 0, 0.2);
+    /*box-shadow: inset 0 -3px #ffffff;*/
+}
+
+#workspaces button.focused {
+    background-color: #64727D;
+    /*box-shadow: inset 0 -3px #ffffff;*/
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+}
+
+/*#mode {
+    background-color: #64727D;
+    border-bottom: 3px solid #ffffff;
+}*/
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0px;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#language,
+#mpd {
+    padding: 0px 10px;
+    margin: 0;
+    color: #ffffff;
+}
+
+#window,
+#workspaces {
+    margin: 0 4px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+
+#battery {
+    background-color: @primary-bg;
+    background-image: linear-gradient(20deg, @secondary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    color: @primary-fg;    
+}
+
+#battery.charging, #battery.plugged {
+/*    color: #ffffff;
+    background-color: #26A65B; */
+    background-color: @primary-bg;
+    background-image: linear-gradient(20deg, @secondary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    color: @primary-fg;
+    /*color: #26A65B;*/
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: #f53c3c;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+#cpu {
+    background-color: @primary-bg;
+    background-image: linear-gradient(20deg, @secondary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    color: @primary-fg;
+}
+
+#memory {
+    background-color: @primary-bg;
+    background-image: linear-gradient(20deg, @secondary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    color: @primary-fg;
+}
+
+#disk {
+/*    background-color: #964B00; */
+}
+
+#backlight {
+    background-color: #90b1b1;
+}
+
+#network {
+    background-color: @primary-bg;
+    background-image: linear-gradient(20deg, @secondary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    color: @primary-fg;
+}
+
+#network.disconnected {
+    background-color: @primary-bg;
+    background-image: linear-gradient(20deg, @secondary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    color: red;
+}
+
+#pulseaudio {
+    background-color: @primary-bg;
+    background-image: linear-gradient(20deg, @secondary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    color: @primary-fg;
+}
+
+#pulseaudio.muted {
+    background-color: @primary-bg;
+    background-image: linear-gradient(20deg, @secondary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    color: red;
+}
+
+@keyframes med-anim {
+    /* 0% {
+        background-image: linear-gradient(62deg, @p-media 0%, @s-media 100%);
+    }
+    50% {
+        background-image: linear-gradient(0deg, @p-media 25%, @s-media 75%);
+    }
+    100% {
+        background-image: linear-gradient(62deg, @p-media 0%, @s-media 100%);
+    } */
+  0% {
+		background-position: 0% 0%;
+	}
+	100% {
+		background-position: 400% 100%;
+	}
+}
+
+#custom-media {
+    background-color: @p-media;
+    /* background-image: linear-gradient(35deg, @p-media 0%, @p-media 15%, @s-media 50%, @p-media 85%, @p-media 100%); */
+    background: linear-gradient(-50deg, #ee7752 0%, #ee7752 10%, #e73c7e 36%, #23a6d5 62%, #ee7752 90%, #ee7752 100%); /*#23d5ab); */
+    background-size: 200% 200%;
+    color: @primary-fg;
+    border-radius: 20px;
+    margin-right: 1em;
+    padding-top: 3px;
+    animation-name: med-anim;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+#custom-media.custom-spotify {
+    background-color: @p-media;
+    background-image: linear-gradient(62deg, @p-media 0%, @s-media 100%);
+    color: @primary-fg;
+    border-radius: 20px;
+    margin-right: 5px;
+
+}
+
+#custom-media.custom-vlc {
+    background-color: @p-media;
+    background-image: linear-gradient(62deg, @p-media 0%, @s-media 100%);
+    color: @primary-fg;
+    border-radius: 20px;
+    margin-right: 5px;
+}
+
+#temperature {
+    background-color: @primary-bg;
+    background-image: linear-gradient(20deg, @secondary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    color: @primary-fg;
+}
+
+#temperature.critical {
+    background-color: #eb4d4b;
+}
+
+#tray {
+    background-color: transparent; /*@primary-bg;*/
+/*    background-image: linear-gradient(-20deg, @secondary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);*/
+    color: @primary-fg;
+    padding: 3px;
+    border: 1px solid @secondary-bg;
+    border-radius: 20px;
+    margin-right: 0.5em;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+    background-color: transparent; /*@primary-bg;*/
+/*    background-image: linear-gradient(-20deg, @primary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);*/
+    color: @primary-fg;
+    padding: 3px;
+    border: 1px solid @secondary-bg;
+
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: transparent; /*@primary-bg;*/
+/*    background-image: linear-gradient(-20deg, @primary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);*/
+    color: @primary-fg;
+    padding: 3px;
+    border: 1px solid @secondary-bg;
+}
+
+@keyframes idle_deactive_anim {
+    0% {
+        background-image: linear-gradient(50deg, @primary-activated-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    }
+    100% {
+        background-image: linear-gradient(-310deg, @primary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    }
+}
+#idle_inhibitor {
+    background-color: @primary-bg;
+    background-image: linear-gradient(50deg, @primary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    background-size: 100% 100%;
+    border-radius: 20px 0px 0px 20px;
+    animation-name: idle_deactive_anim;
+    animation-duration: 500ms;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
+
+@keyframes idle_active_anim {
+    0% {
+        background-image: linear-gradient(50deg, @primary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    }
+    50% {
+        background-image: linear-gradient(-310deg, @primary-activated-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    }
+    100% {
+        background-image: linear-gradient(-670deg, @primary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    }
+
+}
+#idle_inhibitor.activated {
+    background-color: @primary-bg;
+    background-image: linear-gradient(50deg, @primary-activated-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    color: @primary-fg;
+    border-radius: 20px 20px 20px 20px;
+    animation-name: idle_active_anim;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+#mpd {
+    background-color: #66cc99;
+    color: #2a5c45;
+}
+
+#mpd.disconnected {
+    background-color: #f53c3c;
+}
+
+#mpd.stopped {
+    background-color: #90b1b1;
+}
+
+#mpd.paused {
+    background-color: #51a37a;
+}
+
+#language {
+    background-color: @primary-bg;
+    background-image: linear-gradient(20deg, @secondary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    color: @primary-fg;
+    min-width: 16px;
+}
+
+#keyboard-state {
+    background: #97e1ad;
+    color: #000000;
+    min-width: 16px;
+}
+
+#keyboard-state > label {
+    padding: 0px 5px;
+}
+
+#keyboard-state > label.locked {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#clock {
+    background-color: @primary-bg;
+    background-image: linear-gradient(-30deg, @primary-bg 0%, @secondary-bg 68%, @secondary-bg 90%);
+    background-size: 100% 100%;
+    color: @primary-fg;
+    border-radius: 0px 20px 20px 0px;
+    margin-right: 4px;
+    padding-top: 3px;
+}
